@@ -14,13 +14,17 @@ jobs:
 
     # 3. LES ÉTAPES (Les commandes à taper)
     steps:
-      - name: Le robot dit bonjour
-        run: echo "Bonjour Nabiyou ! Je suis ton premier robot CI/CD."
+      # ÉTAPE CRUCIALE : Le robot doit d'abord télécharger vos fichiers depuis GitHub
+      - name: Télécharger le code
+        uses: actions/checkout@v4
 
-      - name: Vérification du système
+      # ÉTAPE DOCKER : On construit l'image
+      - name: Construire l'image Docker
         run: |
-          echo "Voici la machine sur laquelle je tourne :"
-          cat /etc/os-release
+          echo "Démarrage de la construction de l'image..."
+          docker build -t nabiyou-app:v1 .
+          echo "L'image est construite avec succès !"
           
-      - name: Vérifier si Docker est prêt pour la suite
-        run: docker --version
+      # VÉRIFICATION : On regarde si l'image est bien là
+      - name: Vérifier les images Docker
+        run: docker images

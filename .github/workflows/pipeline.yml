@@ -1,0 +1,26 @@
+name: Mon Premier Pipeline CI/CD
+
+# 1. QUAND est-ce que le robot doit se réveiller ?
+on:
+  push:
+    branches:
+      - main  # À chaque fois que du code arrive sur la branche principale
+
+# 2. QUE doit faire le robot ?
+jobs:
+  mon-travail-automatise:
+    # On demande à GitHub de nous prêter un petit serveur Linux gratuit
+    runs-on: ubuntu-latest
+
+    # 3. LES ÉTAPES (Les commandes à taper)
+    steps:
+      - name: Le robot dit bonjour
+        run: echo "Bonjour Nabiyou ! Je suis ton premier robot CI/CD."
+
+      - name: Vérification du système
+        run: |
+          echo "Voici la machine sur laquelle je tourne :"
+          cat /etc/os-release
+          
+      - name: Vérifier si Docker est prêt pour la suite
+        run: docker --version
